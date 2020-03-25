@@ -23,7 +23,7 @@ export default function SplashScreen ({ navigation }) {
 
     if (user) {
         setTimeout(function(){ 
-            navigation.navigate('Login')
+            navigation.navigate('Register')
         }, 1000);
     }
         

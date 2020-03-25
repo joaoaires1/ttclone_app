@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import SplashScreen from './pages/Splash'
 import LoginScreen from './pages/Login'
+import RegisterScreen from './pages/Register'
 
 import UserProvider from './contexts/UserContext'
 
@@ -34,6 +35,14 @@ function App() {
               title: '',
               headerTransparent:true,
             }} />
+
+            <Stack.Screen name="Register" component={RegisterScreen} 
+              options={{ 
+                headerTitle: props => <LogoTitle {...props} />,
+                headerTransparent:true,
+                headerTitleAlign: 'center',
+                headerTintColor: '#107c10'
+              }}/>
 
             <Stack.Screen name="Login" component={LoginScreen} 
               options={{ 

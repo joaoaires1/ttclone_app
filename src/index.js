@@ -1,16 +1,54 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
+import 'react-native-gesture-handler';
 import React from 'react';
-import { Text } from 'react-native';
+import { StatusBar, Image } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
-    return (
-        <Text>Olá</Text>
-    )
+import SplashScreen from './pages/Splash'
+import LoginScreen from './pages/Login'
+
+import UserProvider from './contexts/UserContext'
+
+const Stack = createStackNavigator();
+
+function LogoTitle() {
+  return (
+    <Image
+      style={{ width: 40, height: 40 }}
+      source={require('../src/assets/twitter.png')}
+    />
+  );
 }
+
+function App() {
+  return (
+    <>
+      <StatusBar barStyle="light-content" backgroundColor="#FFF"/>
+
+      <NavigationContainer>
+
+        <UserProvider>
+          <Stack.Navigator>
+
+            <Stack.Screen name="Splash" component={SplashScreen} options={{
+              title: '',
+              headerTransparent:true,
+            }} />
+
+            <Stack.Screen name="Login" component={LoginScreen} 
+              options={{ 
+                headerTitle: props => <LogoTitle {...props} />,
+                headerTransparent:true,
+                headerTitleAlign: 'center',
+                headerTintColor: '#107c10'
+              }}/>
+
+          </Stack.Navigator>
+        </UserProvider>
+        
+      </NavigationContainer>
+    </>
+  );
+}
+
+export default App;

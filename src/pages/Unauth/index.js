@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar, View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
 import styles from './styles'
 
-export default function RegisterScreen ({ navigation }) {
+const Unauth = ({ navigation }) => {
 
     const goToScreen = screen => {
         navigation.navigate(screen)
@@ -29,3 +29,5 @@ export default function RegisterScreen ({ navigation }) {
     );
 
 }
+
+export default Unauth;

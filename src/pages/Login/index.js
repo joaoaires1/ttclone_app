@@ -3,7 +3,7 @@ import { StatusBar, View, Text, TextInput, Button, TouchableOpacity } from 'reac
 import styles from './styles'
 import { UserContext } from '../../contexts/UserContext';
 
-export default function Login ({ navigation }) {
+const Login = ({ navigation }) => {
     const context = useContext(UserContext);
     const user = context.user
 
@@ -38,3 +38,5 @@ export default function Login ({ navigation }) {
     );
 
 }
+
+export default Login;

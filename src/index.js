@@ -9,6 +9,7 @@ import SplashScreen from './pages/Splash'
 import LoginScreen from './pages/Login'
 import RegisterScreen from './pages/Register'
 import UnauthScreen from './pages/Unauth'
+import HomeScreen from './pages/Home'
 
 import UserProvider from './contexts/UserContext'
 
@@ -53,6 +54,13 @@ function App() {
                 headerTitleAlign: 'center',
                 headerTintColor: '#107c10'
               }}/>
+
+            <Stack.Screen name="Home" component={HomeScreen} 
+              options={{ 
+                headerTitle: props => <LogoTitle {...props} />,
+                headerTitleAlign: 'center',
+                headerTintColor: '#107c10'
+              }}/> 
 
           </Stack.Navigator>
         </UserProvider>

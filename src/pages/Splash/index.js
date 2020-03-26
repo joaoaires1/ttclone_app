@@ -4,13 +4,13 @@ import styles from './styles'
 
 import { UserContext } from '../../contexts/UserContext';
 
-export default function SplashScreen ({ navigation }) {
+const Splash = ({ navigation }) => {
     const context = useContext(UserContext);
     const user = context.user
 
     if (user) {
         setTimeout(function(){ 
-            navigation.navigate('Unauth')
+            navigation.navigate('Home')
         }, 1000);
     }
         
@@ -21,3 +21,5 @@ export default function SplashScreen ({ navigation }) {
     );
 
 }
+
+export default Splash;

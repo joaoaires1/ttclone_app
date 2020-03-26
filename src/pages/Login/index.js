@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StatusBar, View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
+import { StatusBar, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './styles'
 import { UserContext } from '../../contexts/UserContext';
 

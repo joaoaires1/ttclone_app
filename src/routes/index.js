@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StatusBar, Image, SafeAreaView, ScrollView, Text, View } from 'react-native'
+import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -15,10 +15,8 @@ import HomeScreen from '../pages/Home'
 import SearchScreen from '../pages/Search'
 import PerfilScreen from '../pages/Perfil'
 
-import UserProvider from '../contexts/UserContext'
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
 import { IMAGE } from '../utils/constants'
+import CustomDrawerContent from '../components/CustomDrawerContent'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -132,65 +130,6 @@ function PerfilTabScreen() {
   );
 }
 
-function CustomDrawerContent(props) {
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ borderBottomWidth: 1, borderBottomColor: '#eee' }}>
-        <View style={{ marginLeft: 20 }}>
-          <Image
-            source={IMAGE.ACCOUNT}
-            style={{ width: 50, height: 50, marginTop: 15 }}
-          />
-        </View>
-
-        <View style={{ marginLeft: 20, marginTop: 8 }}>
-          <Text style={{ fontWeight: 'bold' }}>Joao Aires</Text>
-          <Text>@airesjoao</Text>
-        </View>
-
-        <View style={{ marginLeft: 20, marginTop: 8, marginBottom: 8, flexDirection: 'row' }}>
-          <Text style={{ fontWeight: 'bold' }}>12</Text>
-          <Text style={{ marginLeft: 5 }}>Seguindo</Text>
-          <Text style={{ marginLeft: 10, fontWeight: 'bold' }}>20</Text>
-          <Text style={{ marginLeft: 5 }}>Seguidores</Text>
-        </View>
-
-      </View>
-      <ScrollView>
-
-        <TouchableOpacity
-          style={{ marginBottom: 15, marginTop: 15, marginLeft: 20 }}
-          onPress={() => props.navigation.navigate('Perfil')}
-        >
-          <View style={{ flexDirection: 'row' }}>
-            <Image 
-              source={IMAGE.PERFIL_BLACK}
-              style={{ width: 20, height: 20, marginRight: 8 }}
-            />
-            <Text>Perfil</Text>
-          </View>
-        </TouchableOpacity>
-
-      </ScrollView>
-
-      <View style={{ borderTopColor: '#eee', borderTopWidth: 1 }}>
-        <TouchableOpacity
-            style={{ marginBottom: 15, marginTop: 15, marginLeft: 20, justifyContent: 'center' }}
-            onPress={() => props.navigation.navigate('Unauth')}
-          >
-          <View style={{ flexDirection: 'row' }}>
-            <Image 
-              source={IMAGE.SIGN_OUT}
-              style={{ width: 20, height: 20, marginRight: 8 }}
-            />
-            <Text>Sign out</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  )
-}
-
 function drawerScreen() {
   return (
       <Drawer.Navigator initialRouteName="Home"
@@ -203,7 +142,7 @@ function drawerScreen() {
   );
 }
 
-function App() {
+function Routes() {
   return (
       <NavigationContainer>
 
@@ -252,4 +191,4 @@ function App() {
   );
 }
 
-export default App;
+export default Routes;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import { IMAGE } from '../utils/constants';
 
 export default function LogoTitle({ navigation }) {

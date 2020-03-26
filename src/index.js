@@ -1,9 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StatusBar, Image } from 'react-native'
+import { StatusBar, Image, SafeAreaView, ScrollView, Text, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import LogoTitle from './components/LogoTitle'
 import SplashScreen from './pages/Splash'
@@ -15,14 +16,15 @@ import SearchScreen from './pages/Search'
 import PerfilScreen from './pages/Perfil'
 
 import UserProvider from './contexts/UserContext'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
-
-const HomeTab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 function HomeTabScreen() {
   return (
-    <HomeTab.Navigator
+    <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -44,14 +46,133 @@ function HomeTabScreen() {
           return <Image source={iconName} style={{ width: 20, height: 20 }} />;
         },
       })}
+      initialRouteName="Home"
       tabBarOptions={{
         showLabel: false
       }}
     >
-      <HomeTab.Screen name="Home" component={HomeScreen} />
-      <HomeTab.Screen name="Search" component={SearchScreen} />
-      <HomeTab.Screen name="Perfil" component={PerfilScreen} />
-    </HomeTab.Navigator>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Perfil" component={PerfilScreen} />
+    </Tab.Navigator>
+  );
+}
+
+function SearchTabScreen() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused
+              ? require('./assets/home.png')
+              : require('./assets/home-black.png');
+          } else if (route.name === 'Search') {
+            iconName = focused 
+              ? require('./assets/search.png')
+              : require('./assets/search-black.png');
+          } else if (route.name === 'Perfil') {
+            iconName = focused 
+              ? require('./assets/perfil.png')
+              : require('./assets/perfil-black.png');
+          }
+
+          return <Image source={iconName} style={{ width: 20, height: 20 }} />;
+        },
+      })}
+      initialRouteName="Search"
+      tabBarOptions={{
+        showLabel: false
+      }}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Perfil" component={PerfilScreen} />
+    </Tab.Navigator>
+  );
+}
+
+function PerfilTabScreen() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused
+              ? require('./assets/home.png')
+              : require('./assets/home-black.png');
+          } else if (route.name === 'Search') {
+            iconName = focused 
+              ? require('./assets/search.png')
+              : require('./assets/search-black.png');
+          } else if (route.name === 'Perfil') {
+            iconName = focused 
+              ? require('./assets/perfil.png')
+              : require('./assets/perfil-black.png');
+          }
+
+          return <Image source={iconName} style={{ width: 20, height: 20 }} />;
+        },
+      })}
+      initialRouteName="Perfil"
+      tabBarOptions={{
+        showLabel: false
+      }}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Perfil" component={PerfilScreen} />
+    </Tab.Navigator>
+  );
+}
+
+function CustomDrawerContent(props) {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View>
+
+      </View>
+      <ScrollView>
+
+        <TouchableOpacity
+          style={{ marginTop: 20 }}
+          onPress={() => props.navigation.navigate('Home')}
+        >
+          <Text>Home</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{ marginTop: 20 }}
+          onPress={() => props.navigation.navigate('Search')}
+        >
+          <Text>Search</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{ marginTop: 20 }}
+          onPress={() => props.navigation.navigate('Perfil')}
+        >
+          <Text>Perfil</Text>
+        </TouchableOpacity>
+
+      </ScrollView>
+    </SafeAreaView>
+  )
+}
+
+function drawerScreen() {
+  return (
+      <Drawer.Navigator initialRouteName="Home"
+        drawerContent={props => CustomDrawerContent(props)}
+      >
+        <Drawer.Screen name="Home" component={HomeTabScreen} />
+        <Drawer.Screen name="Search" component={SearchTabScreen} />
+        <Drawer.Screen name="Perfil" component={PerfilTabScreen} />
+      </Drawer.Navigator>
   );
 }
 
@@ -95,7 +216,7 @@ function App() {
                 headerTintColor: '#107c10'
               }}/>
 
-            <Stack.Screen name="Home" component={HomeTabScreen} 
+            <Stack.Screen name="Home" component={drawerScreen} 
               options={{ 
                 title: '',
                 headerTransparent:true,

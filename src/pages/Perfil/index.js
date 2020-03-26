@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import { StatusBar, View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
 import CustomHeader from '../../components/CustomHeader';
 
-const Perfil = () => {
+const Perfil = ({ navigation }) => {
 
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="#ccc" />
-            <CustomHeader />
+            <CustomHeader navigation={navigation} />
             <Text>Perfil</Text>
         </>
     );

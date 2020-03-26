@@ -133,33 +133,58 @@ function PerfilTabScreen() {
 function CustomDrawerContent(props) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View>
+      <View style={{ borderBottomWidth: 1, borderBottomColor: '#eee' }}>
+        <View style={{ marginLeft: 20 }}>
+          <Image
+            source={require('./assets/account.png')}
+            style={{ width: 50, height: 50, marginTop: 15 }}
+          />
+        </View>
+
+        <View style={{ marginLeft: 20, marginTop: 8 }}>
+          <Text style={{ fontWeight: 'bold' }}>Joao Aires</Text>
+          <Text>@airesjoao</Text>
+        </View>
+
+        <View style={{ marginLeft: 20, marginTop: 8, marginBottom: 8, flexDirection: 'row' }}>
+          <Text style={{ fontWeight: 'bold' }}>12</Text>
+          <Text style={{ marginLeft: 5 }}>Seguindo</Text>
+          <Text style={{ marginLeft: 10, fontWeight: 'bold' }}>20</Text>
+          <Text style={{ marginLeft: 5 }}>Seguidores</Text>
+        </View>
 
       </View>
       <ScrollView>
 
         <TouchableOpacity
-          style={{ marginTop: 20 }}
-          onPress={() => props.navigation.navigate('Home')}
-        >
-          <Text>Home</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{ marginTop: 20 }}
-          onPress={() => props.navigation.navigate('Search')}
-        >
-          <Text>Search</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{ marginTop: 20 }}
+          style={{ marginBottom: 15, marginTop: 15, marginLeft: 20 }}
           onPress={() => props.navigation.navigate('Perfil')}
         >
-          <Text>Perfil</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Image 
+              source={require('./assets/perfil-black.png')}
+              style={{ width: 20, height: 20, marginRight: 8 }}
+            />
+            <Text>Perfil</Text>
+          </View>
         </TouchableOpacity>
 
       </ScrollView>
+
+      <View style={{ borderTopColor: '#eee', borderTopWidth: 1 }}>
+        <TouchableOpacity
+            style={{ marginBottom: 15, marginTop: 15, marginLeft: 20, justifyContent: 'center' }}
+            onPress={() => props.navigation.navigate('Unauth')}
+          >
+          <View style={{ flexDirection: 'row' }}>
+            <Image 
+              source={require('./assets/signout.png')}
+              style={{ width: 20, height: 20, marginRight: 8 }}
+            />
+            <Text>Sign out</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   )
 }

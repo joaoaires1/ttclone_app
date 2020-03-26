@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Image } from 'react-native';
-import styles from './styles'
-
+import styles from './styles';
+import { IMAGE } from '../../utils/constants';
 import { UserContext } from '../../contexts/UserContext';
 
 const Splash = ({ navigation }) => {
@@ -16,7 +16,7 @@ const Splash = ({ navigation }) => {
         
     return (
         <View style={styles.logoContainer}>
-            <Image style={styles.tinyLogo} source={require('../../assets/twitter.png')} />
+            <Image style={styles.tinyLogo} source={IMAGE.LOGO} />
         </View>
     );
 

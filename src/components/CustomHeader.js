@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native'
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { IMAGE } from '../utils/constants';
 
 export default function LogoTitle({ navigation }) {
     return (
@@ -7,13 +8,13 @@ export default function LogoTitle({ navigation }) {
             <View style={{ flex: 1, justifyContent: 'center' }}>
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <Image style={{ width: 25, height: 25, marginLeft: 5 }}
-                        source={require('../assets/menu.png')}
+                        source={IMAGE.MENU}
                         resizeMode="contain" />
                 </TouchableOpacity>
             </View>
             <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center' }}>
                 <Image style={{ width: 25, height: 25 }}
-                    source={require('../assets/twitter.png')}
+                    source={IMAGE.LOGO}
                     resizeMode="contain" />
             </View>
             <View style={{ flex: 1 }}>

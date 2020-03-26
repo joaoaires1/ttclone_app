@@ -4,22 +4,15 @@ import { StatusBar, Image } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import LogoTitle from './components/LogoTitle'
 import SplashScreen from './pages/Splash'
 import LoginScreen from './pages/Login'
 import RegisterScreen from './pages/Register'
+import UnauthScreen from './pages/Unauth'
 
 import UserProvider from './contexts/UserContext'
 
 const Stack = createStackNavigator();
-
-function LogoTitle() {
-  return (
-    <Image
-      style={{ width: 40, height: 40 }}
-      source={require('../src/assets/twitter.png')}
-    />
-  );
-}
 
 function App() {
   return (
@@ -35,6 +28,15 @@ function App() {
               title: '',
               headerTransparent:true,
             }} />
+
+            <Stack.Screen name="Unauth" component={UnauthScreen} 
+              options={{ 
+                headerTitle: props => <LogoTitle {...props} />,
+                headerTransparent:true,
+                headerLeft: null,
+                headerTitleAlign: 'center',
+                headerTintColor: '#107c10'
+              }}/>
 
             <Stack.Screen name="Register" component={RegisterScreen} 
               options={{ 

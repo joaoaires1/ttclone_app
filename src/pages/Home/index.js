@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { StatusBar, View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
 import CustomHeader from '../../components/CustomHeader';
 import { UserContext } from '../../contexts/UserContext';
+import { getData } from '../../utils/helpers';
 
 const Home = ({ navigation }) => {
     const context = useContext(UserContext);

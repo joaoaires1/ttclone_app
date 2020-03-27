@@ -3,6 +3,7 @@ import { View, Image } from 'react-native';
 import styles from './styles';
 import { IMAGE } from '../../utils/constants';
 import { UserContext } from '../../contexts/UserContext';
+import { storeData } from '../../utils/helpers';
 
 const Splash = ({ navigation }) => {
     const context = useContext(UserContext);

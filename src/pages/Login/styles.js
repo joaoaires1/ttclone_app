@@ -15,6 +15,11 @@ export default StyleSheet.create({
         borderColor: '#ccc', 
         borderBottomWidth: 1
     },
+    errorText: {
+        color: 'red', 
+        marginLeft: 10,
+        marginTop: 10 
+    },
     viewButton: { 
         flex: 1, 
         alignItems: 'flex-end', 

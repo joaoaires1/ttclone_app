@@ -3,7 +3,7 @@ import { StatusBar, View, Text, TextInput, Button, TouchableOpacity } from 'reac
 import CustomHeader from '../../components/CustomHeader';
 
 const Perfil = ({ navigation }) => {
-
+    console.log('qwe');
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="#ccc" />

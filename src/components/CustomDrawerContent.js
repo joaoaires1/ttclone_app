@@ -9,12 +9,14 @@ import {
     StyleSheet
 } from 'react-native';
 import { IMAGE } from '../utils/constants';
+import { storeData } from '../utils/helpers';
 
 const styles = StyleSheet.create({
     account: { 
         width: 50, 
         height: 50, 
-        marginTop: 15 
+        marginTop: 15,
+        borderRadius: 50 
     },
     viewStats: { 
         borderBottomWidth: 1, 
@@ -27,20 +29,28 @@ const styles = StyleSheet.create({
     }
 });
 
-const CustomDrawerContent = props => {
+const CustomDrawerContent = ({ navigation, UserContext }) => {
+    const { name, username, avatar } = UserContext;
+    const profileImage = avatar ? { uri: avatar } : IMAGE.ACCOUNT;
+
+    const handleSignOutPress = () => {
+        storeData({});
+        navigation.navigate('Unauth');
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.viewStats}>
             <View style={{ marginLeft: 20 }}>
                 <Image
-                    source={IMAGE.ACCOUNT}
+                    source={profileImage}
                     style={styles.account}
                 />
             </View>
 
             <View style={{ marginLeft: 20, marginTop: 8 }}>
-                <Text style={{ fontWeight: 'bold' }}>Joao Aires</Text>
-                <Text>@airesjoao</Text>
+                <Text style={{ fontWeight: 'bold' }}>{ name }</Text>
+                <Text>@{ username }</Text>
             </View>
 
             <View style={{ marginLeft: 20, marginTop: 8, marginBottom: 8, flexDirection: 'row' }}>
@@ -56,7 +66,7 @@ const CustomDrawerContent = props => {
 
             <TouchableOpacity
                 style={{ marginBottom: 15, marginTop: 15, marginLeft: 20 }}
-                onPress={() => props.navigation.navigate('Perfil')}
+                onPress={() => navigation.navigate('Perfil')}
             >
             <View style={{ flexDirection: 'row' }}>
                 <Image 
@@ -72,7 +82,7 @@ const CustomDrawerContent = props => {
         <View style={{ borderTopColor: '#eee', borderTopWidth: 1 }}>
             <TouchableOpacity
                 style={{ marginBottom: 15, marginTop: 15, marginLeft: 20, justifyContent: 'center' }}
-                onPress={() => props.navigation.navigate('Unauth')}
+                onPress={handleSignOutPress}
             >
                 <View style={{ flexDirection: 'row' }}>
                     <Image 

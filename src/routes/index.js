@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,6 +17,7 @@ import PerfilScreen from '../pages/Perfil'
 
 import { IMAGE } from '../utils/constants'
 import CustomDrawerContent from '../components/CustomDrawerContent'
+import { UserContext } from '../contexts/UserContext';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -131,9 +132,11 @@ function PerfilTabScreen() {
 }
 
 function drawerScreen() {
+  const { user } = useContext(UserContext);
+
   return (
       <Drawer.Navigator initialRouteName="Home"
-        drawerContent={props => CustomDrawerContent(props)}
+        drawerContent={({navigation}) => <CustomDrawerContent navigation={navigation} UserContext={user} />}
       >
         <Drawer.Screen name="Home" component={HomeTabScreen} />
         <Drawer.Screen name="Search" component={SearchTabScreen} />

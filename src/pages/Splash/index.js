@@ -2,18 +2,23 @@ import React, { useContext } from 'react';
 import { View, Image } from 'react-native';
 import styles from './styles';
 import { IMAGE } from '../../utils/constants';
-import { UserContext } from '../../contexts/UserContext';
-import { storeData } from '../../utils/helpers';
+import { getData } from '../../utils/helpers';
 
 const Splash = ({ navigation }) => {
-    const context = useContext(UserContext);
-    const user = context.user
 
-    if (user) {
-        setTimeout(function(){ 
-            navigation.navigate('Home')
-        }, 1000);
-    }
+    getData().then(data => {
+
+        if (data.hasOwnProperty('name')) {
+            setTimeout(function(){ 
+                navigation.navigate('Home')
+            }, 1000);
+        } else {
+            setTimeout(function(){ 
+                navigation.navigate('Unauth')
+            }, 1000);
+        }
+
+    })
         
     return (
         <View style={styles.logoContainer}>

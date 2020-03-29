@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { IMAGE } from '../utils/constants';
 
 export default function LogoTitle({ navigation }) {
     return (
-        <View style={{ flexDirection: 'row', height: 50 }}>
+        <View style={{ flexDirection: 'row', height: 50, borderBottomColor: '#ccc', borderBottomWidth: StyleSheet.hairlineWidth }}>
             <View style={{ flex: 1, justifyContent: 'center' }}>
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <Image style={{ width: 25, height: 25, marginLeft: 5 }}

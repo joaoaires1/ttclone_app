@@ -35,6 +35,7 @@ const CustomDrawerContent = ({ navigation, UserContext }) => {
 
     const handleSignOutPress = () => {
         storeData({});
+        navigation.closeDrawer();
         navigation.navigate('Unauth');
     }
 

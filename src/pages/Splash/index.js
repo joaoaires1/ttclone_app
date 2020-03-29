@@ -1,24 +1,37 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, Image } from 'react-native';
 import styles from './styles';
 import { IMAGE } from '../../utils/constants';
-import { getData } from '../../utils/helpers';
+import { getData, callTimeline } from '../../utils/helpers';
+import { UserContext } from '../../contexts/UserContext';
 
 const Splash = ({ navigation }) => {
+    const { setUser, setTimeline } = useContext(UserContext);
 
-    getData().then(data => {
+    useEffect(() => {
+        construct();
+    }, []);
+        
+    const construct = async () => {
+        const userStorage = await getData();
 
-        if (data.hasOwnProperty('name')) {
-            setTimeout(function(){ 
-                navigation.navigate('Home')
-            }, 1000);
-        } else {
-            setTimeout(function(){ 
-                navigation.navigate('Unauth')
-            }, 1000);
+        try {
+            if (userStorage.hasOwnProperty('name')) {
+                
+                const postsFromApi = await callTimeline(userStorage);
+                const { data } = postsFromApi;
+                await setUser(userStorage);
+                await setTimeline(data.posts);
+    
+                navigation.navigate('Home');
+            } else {
+                navigation.navigate('Unauth');
+            }  
+        } catch (error) {
+            navigation.navigate('Unauth');
         }
-
-    })
+        
+    }
         
     return (
         <View style={styles.logoContainer}>

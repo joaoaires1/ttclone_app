@@ -2,11 +2,12 @@ import React, { useContext, useState } from 'react';
 import { StatusBar, View, Text, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import styles from './styles'
 import { UserContext } from '../../contexts/UserContext';
-import api from '../../services/api';
+import { callLogin, callTimeline } from '../../services/api';
 import * as yup from 'yup';
 import { storeData } from '../../utils/helpers';
 
 const Login = ({ navigation }) => {
+    const { setUser, setTimeline } = useContext(UserContext);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -18,7 +19,7 @@ const Login = ({ navigation }) => {
     });
 
     /**
-     * Handle login press to call login endpoint
+     * Validate form
      */
     const handleValidateForm = async () => {
 
@@ -36,14 +37,23 @@ const Login = ({ navigation }) => {
             
     }
 
+    /**
+     * After validation handle call to login api
+     */
     const handleSignIn = async () => {
         try {
-            const response = await api.post('/login', {
+            const bodyRequest = {
                 username,
                 password
-            });
+            }
+
+            const { data } = await callLogin(bodyRequest);
             
-            storeData(response.data);
+            await storeData(data);
+            await setUser(data);
+            const postsFromApi = await callTimeline(data);
+            await setTimeline(postsFromApi.data.posts);
+
             navigation.navigate('Home');
         } catch (error) {
             setError('Error in sing in, check your credentials.');

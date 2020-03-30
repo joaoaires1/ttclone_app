@@ -2,7 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import { View, Image } from 'react-native';
 import styles from './styles';
 import { IMAGE } from '../../utils/constants';
-import { getData, callTimeline } from '../../utils/helpers';
+import { getData } from '../../utils/helpers';
+import { callTimeline } from '../../services/api';
 import { UserContext } from '../../contexts/UserContext';
 
 const Splash = ({ navigation }) => {

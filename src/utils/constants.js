@@ -8,5 +8,7 @@ export const IMAGE = {
     ACCOUNT: require('../assets/account.png'),
     SIGN_OUT: require('../assets/signout.png'),
     MENU: require('../assets/menu.png'),
-    LOGO: require('../assets/twitter.png')
+    LOGO: require('../assets/twitter.png'),
+    CALENDAR: require('../assets/calendar.png'),
+    BACK: require('../assets/back.png'),
 }

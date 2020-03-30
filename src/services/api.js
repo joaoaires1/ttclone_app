@@ -33,3 +33,14 @@ export const callTimeline = async ({id, api_token}) => {
 
     return response;
 }
+
+export const callPerfilPosts = async ({id, api_token, username}) => {
+
+    const response = await api.get('/posts_by_username', { params: {
+        id,
+        api_token,
+        username
+    }});
+
+    return response;
+}

@@ -54,7 +54,6 @@ function HomeTabScreen() {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Search" component={SearchScreen} />
-      <Tab.Screen name="Perfil" component={PerfilScreen} />
     </Tab.Navigator>
   );
 }
@@ -90,7 +89,6 @@ function SearchTabScreen() {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Search" component={SearchScreen} />
-      <Tab.Screen name="Perfil" component={PerfilScreen} />
     </Tab.Navigator>
   );
 }
@@ -126,7 +124,6 @@ function PerfilTabScreen() {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Search" component={SearchScreen} />
-      <Tab.Screen name="Perfil" component={PerfilScreen} />
     </Tab.Navigator>
   );
 }
@@ -140,7 +137,7 @@ function drawerScreen() {
       >
         <Drawer.Screen name="Home" component={HomeTabScreen} />
         <Drawer.Screen name="Search" component={SearchTabScreen} />
-        <Drawer.Screen name="Perfil" component={PerfilTabScreen} />
+        <Drawer.Screen name="Perfil" component={PerfilScreen} />
       </Drawer.Navigator>
   );
 }
@@ -186,7 +183,7 @@ function Routes() {
                 title: '',
                 headerTransparent:true,
                 headerLeft: null
-              }}/> 
+              }}/>
 
           </Stack.Navigator>
         

@@ -19,7 +19,8 @@ export default StyleSheet.create({
         padding: 15, 
         position: 'relative',
         borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#657786'
+        borderBottomColor: '#657786',
+        marginTop: 120
     },
     perfilImage: {
         width: 75, 
@@ -28,7 +29,8 @@ export default StyleSheet.create({
         borderColor: '#FFF',
         borderRadius: 50,
         position: 'absolute',
-        top: -45
+        top: -45,
+        
     },
     buttonPerfil: {
         alignSelf: "flex-end",

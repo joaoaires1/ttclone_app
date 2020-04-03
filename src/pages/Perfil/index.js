@@ -6,10 +6,6 @@ import { UserContext } from '../../contexts/UserContext';
 import { callPerfilPosts } from '../../services/api';
 import Post from '../../components/Post';
 
-const HEADER_MAX_HEIGHT = 120;
-const HEADER_MIN_HEIGHT = 60;
-const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
-
 const Perfil = ({ navigation }) => {
     const { user } = useContext(UserContext);
     const [ posts, setPosts ] = useState([]);
@@ -28,18 +24,44 @@ const Perfil = ({ navigation }) => {
     const animatedScrollYValue = new Animated.Value(0);
 
     const headerHeight = animatedScrollYValue.interpolate({
-        inputRange: [0, HEADER_SCROLL_DISTANCE],
-        outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+        inputRange: [0, 60],
+        outputRange: [120, 60],
         extrapolate: 'clamp',
       });
+
+    const imageWidth = animatedScrollYValue.interpolate({
+        inputRange: [0, 40],
+        outputRange: [75, 55],
+        extrapolate: 'clamp',
+    });
+
+    const imageTop = animatedScrollYValue.interpolate({
+        inputRange: [0, 30],
+        outputRange: [-45, -14],
+        extrapolate: 'clamp',
+    });
+
+    const zIndexImage = animatedScrollYValue.interpolate({
+        inputRange: [0, 50],
+        outputRange: [-10,1],
+        extrapolate: 'clamp',
+    });
 
     const ListHeder = () => {
         return (
             <View style={styles.containerStats}>
-                <View>
-                    <Image 
+                <View >
+                    <Animated.Image 
                         source={{ uri: user.avatar }}
-                        style={styles.perfilImage}
+                        style={{
+                            width: imageWidth, 
+                            height: imageWidth,
+                            borderWidth: 4,
+                            borderColor: '#eee',
+                            borderRadius: 50,
+                            position: 'absolute',
+                            top: imageTop
+                        }}
                     />
 
                     <TouchableOpacity style={styles.buttonPerfil}>
@@ -47,7 +69,7 @@ const Perfil = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
 
-                <View style={{ marginTop: 7 }}>
+                <View style={{ marginTop: 15 }}>
                     <Text style={styles.textName}>{user.name}</Text>
                     <Text style={styles.textUsername}>@{user.username}</Text>
                 </View>
@@ -79,19 +101,19 @@ const Perfil = ({ navigation }) => {
                     left: 0,
                     right: 0,
                     backgroundColor: 'green',
-                    // zIndex: 10,
+                    zIndex: zIndexImage,
                     height: headerHeight 
                 }} 
+            ></Animated.View>
+
+            <TouchableOpacity style={styles.backButton}
+                onPress={() => navigation.goBack()}
             >
-                <TouchableOpacity style={styles.backButton}
-                    onPress={() => navigation.goBack()}
-                >
-                    <Animated.Image 
-                        source={IMAGE.BACK}
-                        style={{ width: 17, height: 17 }}
-                    />
-                </TouchableOpacity>
-            </Animated.View>
+                <Animated.Image 
+                    source={IMAGE.BACK}
+                    style={{ width: 17, height: 17 }}
+                />
+            </TouchableOpacity>
 
             <AnimatedFlatList
                 data={posts}

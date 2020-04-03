@@ -6,21 +6,22 @@ export default StyleSheet.create({
         height: 120
     },
     backButton: {
-        marginTop: 12, 
-        marginLeft: 12, 
+        marginTop: 15, 
+        marginLeft: 12,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         width: 30,
         height: 30,
         borderRadius: 50,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        zIndex: 10
     },  
     containerStats: {
         padding: 15, 
         position: 'relative',
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: '#657786',
-        marginTop: 120
+        marginTop: 75
     },
     perfilImage: {
         width: 75, 

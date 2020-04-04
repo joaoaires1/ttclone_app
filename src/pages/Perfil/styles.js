@@ -6,22 +6,22 @@ export default StyleSheet.create({
         height: 120
     },
     backButton: {
-        marginTop: 15, 
         marginLeft: 12,
+        marginRight: 27,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         width: 30,
         height: 30,
         borderRadius: 50,
         alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 10
+        justifyContent: 'center'
+        
     },  
     containerStats: {
         padding: 15, 
         position: 'relative',
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: '#657786',
-        marginTop: 75
+        marginTop: 62
     },
     perfilImage: {
         width: 75, 
@@ -73,5 +73,11 @@ export default StyleSheet.create({
     textGray: {
         color: '#657786',
         marginRight: 10
+    },
+    headerNav: { 
+        flexDirection: 'row', 
+        height: 60, 
+        alignItems: 'center', 
+        zIndex: 10 
     }
 });

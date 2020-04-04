@@ -47,6 +47,12 @@ const Perfil = ({ navigation }) => {
         extrapolate: 'clamp',
     });
 
+    const opacity = animatedScrollYValue.interpolate({
+        inputRange: [0, 150],
+        outputRange: [-10,1],
+        extrapolate: 'clamp',
+    });
+
     const ListHeder = () => {
         return (
             <View style={styles.containerStats}>
@@ -106,14 +112,22 @@ const Perfil = ({ navigation }) => {
                 }} 
             ></Animated.View>
 
-            <TouchableOpacity style={styles.backButton}
-                onPress={() => navigation.goBack()}
-            >
-                <Animated.Image 
-                    source={IMAGE.BACK}
-                    style={{ width: 17, height: 17 }}
-                />
-            </TouchableOpacity>
+            <View style={styles.headerNav}>
+                <TouchableOpacity style={styles.backButton}
+                    onPress={() => navigation.goBack()}
+                >
+                    <Animated.Image 
+                        source={IMAGE.BACK}
+                        style={{ width: 17, height: 17 }}
+                    />
+                </TouchableOpacity>
+
+                <Animated.View style={{ opacity: opacity }}>
+                    <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#fff' }}>Joao Aires</Text>
+                    <Text style={{ color: '#fff' }}>9 Tweets</Text>
+                </Animated.View>
+
+            </View>
 
             <AnimatedFlatList
                 data={posts}

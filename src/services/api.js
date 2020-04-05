@@ -44,3 +44,14 @@ export const callPerfilPosts = async ({id, api_token, username}) => {
 
     return response;
 }
+
+export const callSearchPeoples = async ({id, api_token, name}) => {
+
+    const response = await api.get('/search', { params: {
+        id,
+        api_token,
+        name
+    }});
+
+    return response;
+}

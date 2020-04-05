@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 
-export default Post = ({ user, createdAt, text }) => {
+export default Post = ({ user, createdAt, text, search }) => {
     return (
         <View style={styles.row}>
 
@@ -13,8 +13,19 @@ export default Post = ({ user, createdAt, text }) => {
             </View>
 
             <View style={styles.rowChild}>
-                <Text>{user.name} <Text style={styles.usernameText}>@{user.username} - {createdAt}</Text></Text>
-                <Text>{text}</Text>
+                {
+                    !search 
+                    ?
+                    <>
+                        <Text>{user.name} <Text style={styles.usernameText}>@{user.username} - {createdAt}</Text></Text>
+                        <Text>{text}</Text>
+                    </> 
+                    :
+                    <>
+                        <Text>{user.name}</Text>
+                        <Text style={styles.usernameText}>@{user.username}</Text>
+                    </>
+                }
             </View>
 
         </View>

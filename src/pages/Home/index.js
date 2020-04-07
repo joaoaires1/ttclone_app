@@ -14,7 +14,12 @@ const Home = ({ navigation }) => {
 
             <FlatList
                 data={timeline}
-                renderItem={({ item }) => <Post user={item.user} createdAt={item.created_at} text={item.text} />}
+                renderItem={({ item }) => <Post 
+                    user={item.user} 
+                    createdAt={item.created_at} 
+                    text={item.text} 
+                    navigation={navigation} 
+                />}
                 keyExtractor={item => `${item.id}`}
             />
         </>

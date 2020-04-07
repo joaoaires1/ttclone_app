@@ -6,19 +6,24 @@ import { UserContext } from '../../contexts/UserContext';
 import { callPerfilPosts } from '../../services/api';
 import Post from '../../components/Post';
 
-const Perfil = ({ navigation }) => {
+const Perfil = ({ route, navigation }) => {
     const { user } = useContext(UserContext);
     const [ posts, setPosts ] = useState([]);
+    const [ perfilData, setPerfilData ] = useState([]);
+
+    const {username} = route.params
 
     useEffect(() => {
         construct();
-    }, []);
+    }, [username]);
 
     const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
     const construct = async () => {
-        const { data: postsFromServer } = await callPerfilPosts(user);
+        const { data: postsFromServer } = await callPerfilPosts({ id: user.id, api_token: user.api_token, username });
+        
         setPosts(postsFromServer.posts);
+        setPerfilData(postsFromServer.user);
     }
 
     const animatedScrollYValue = new Animated.Value(0);
@@ -27,7 +32,7 @@ const Perfil = ({ navigation }) => {
         inputRange: [0, 60],
         outputRange: [120, 60],
         extrapolate: 'clamp',
-      });
+    });
 
     const imageWidth = animatedScrollYValue.interpolate({
         inputRange: [0, 40],
@@ -58,7 +63,7 @@ const Perfil = ({ navigation }) => {
             <View style={styles.containerStats}>
                 <View >
                     <Animated.Image 
-                        source={{ uri: user.avatar }}
+                        source={{ uri: perfilData.avatar }}
                         style={{
                             width: imageWidth, 
                             height: imageWidth,
@@ -76,8 +81,8 @@ const Perfil = ({ navigation }) => {
                 </View>
 
                 <View style={{ marginTop: 15 }}>
-                    <Text style={styles.textName}>{user.name}</Text>
-                    <Text style={styles.textUsername}>@{user.username}</Text>
+                    <Text style={styles.textName}>{perfilData.name}</Text>
+                    <Text style={styles.textUsername}>@{perfilData.username}</Text>
                 </View>
 
                 <View style={styles.textSince}>

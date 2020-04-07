@@ -67,7 +67,7 @@ const CustomDrawerContent = ({ navigation, UserContext }) => {
 
             <TouchableOpacity
                 style={{ marginBottom: 15, marginTop: 15, marginLeft: 20 }}
-                onPress={() => navigation.navigate('Perfil')}
+                onPress={() => navigation.navigate('Perfil', { username })}
             >
             <View style={{ flexDirection: 'row' }}>
                 <Image 

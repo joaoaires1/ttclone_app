@@ -1,16 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
-export default Post = ({ user, createdAt, text, search }) => {
+export default Post = ({ user, createdAt, text, search, navigation }) => {
     return (
         <View style={styles.row}>
 
-            <View style={styles.rowChild}>
+            <TouchableOpacity style={styles.rowChild}
+                onPress={() => navigation.navigate('Perfil', { username: user.username })}
+            >
                 <Image 
                     source={{ uri: user.avatar }}
                     style={styles.avatar}
                 />
-            </View>
+            </TouchableOpacity>
 
             <View style={styles.rowChild}>
                 {

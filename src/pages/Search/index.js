@@ -60,7 +60,7 @@ const Search = ({ navigation }) => {
 
             <FlatList
                 data={peoples}
-                renderItem={({ item }) =>  <Post user={item} search={true} />}
+                renderItem={({ item }) =>  <Post user={item} search={true} navigation={navigation} />}
                 keyExtractor={item => `${item.username}`}
             />
             

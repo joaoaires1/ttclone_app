@@ -6,12 +6,16 @@ import {
     StyleSheet, 
     TouchableOpacity,
     TextInput,
-    FlatList
+    FlatList,
+    Keyboard,
+    KeyboardAvoidingView,
+    TouchableWithoutFeedback
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { callSearchPeoples } from '../../services/api';
 import { UserContext } from '../../contexts/UserContext';
 import Post from '../../components/Post';
+import styles from '../Search/styles';
 
 const Search = ({ navigation }) => {
     const { user } = useContext(UserContext);
@@ -32,29 +36,24 @@ const Search = ({ navigation }) => {
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="#ccc" />
-            <View style={{ alignItems: 'center', flexDirection: 'row', height: 50, borderBottomColor: '#ccc', borderBottomWidth: StyleSheet.hairlineWidth }}>
+            <View style={styles.container}>
                 
                 <TouchableOpacity style={{ marginLeft: 15 }} onPress={() => navigation.openDrawer()}>
                     <Icon name="menu" size={30} color="#107c10" />
                 </TouchableOpacity>
 
-                <View>
-                    <TextInput
-                        style={{ 
-                            height: 40, 
-                            borderColor: 'gray', 
-                            borderWidth: 1,
-                            borderRadius: 50,
-                            width: 250,
-                            paddingHorizontal: 20,
-                            marginLeft: 30,
-                            backgroundColor: 'rgb(230, 236, 240)',
-                            borderColor: '#ccc',
-                        }}
-                        placeholder="Search in twitter"
-                        onChangeText={text => handleSearch(text)}
-                    />
-                </View>
+                <KeyboardAvoidingView>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <View>
+                            <TextInput
+                                style={styles.inputStyle}
+                                placeholder="Search in twitter"
+                                onChangeText={text => handleSearch(text)}
+                            />
+                        </View>
+                    </TouchableWithoutFeedback>
+                </KeyboardAvoidingView>
+                
 
             </View>
 

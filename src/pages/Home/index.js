@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { StatusBar, View, Text, TextInput, Button, TouchableOpacity, Image,FlatList } from 'react-native';
+import React, { useContext } from 'react';
+import { StatusBar, FlatList } from 'react-native';
 import CustomHeader from '../../components/CustomHeader';
 import Post from '../../components/Post';
 import { UserContext } from '../../contexts/UserContext';
+import TweetBtn from '../../components/TweetButton';
 
 const Home = ({ navigation }) => {
     const { timeline} = useContext(UserContext);
@@ -11,6 +12,7 @@ const Home = ({ navigation }) => {
         <>
             <StatusBar barStyle="light-content" backgroundColor="#ccc" />
             <CustomHeader navigation={navigation} />
+            <TweetBtn navigation={navigation} />
 
             <FlatList
                 data={timeline}

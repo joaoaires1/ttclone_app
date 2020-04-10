@@ -14,6 +14,7 @@ import UnauthScreen from '../pages/Unauth'
 import HomeScreen from '../pages/Home'
 import SearchScreen from '../pages/Search'
 import PerfilScreen from '../pages/Perfil'
+import TweetScreen from '../pages/Tweet'
 
 import { IMAGE } from '../utils/constants'
 import CustomDrawerContent from '../components/CustomDrawerContent'
@@ -138,6 +139,7 @@ function drawerScreen() {
         <Drawer.Screen name="Home" component={HomeTabScreen} />
         <Drawer.Screen name="Search" component={SearchTabScreen} />
         <Drawer.Screen name="Perfil" component={PerfilScreen} />
+        <Drawer.Screen name="Tweet" component={TweetScreen} />
       </Drawer.Navigator>
   );
 }

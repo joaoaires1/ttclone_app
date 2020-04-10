@@ -16,6 +16,7 @@ import { callSearchPeoples } from '../../services/api';
 import { UserContext } from '../../contexts/UserContext';
 import Post from '../../components/Post';
 import styles from '../Search/styles';
+import TweetBtn from '../../components/TweetButton';
 
 const Search = ({ navigation }) => {
     const { user } = useContext(UserContext);
@@ -36,6 +37,8 @@ const Search = ({ navigation }) => {
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="#ccc" />
+            <TweetBtn navigation={navigation} />
+
             <View style={styles.container}>
                 
                 <TouchableOpacity style={{ marginLeft: 15 }} onPress={() => navigation.openDrawer()}>

@@ -6,8 +6,12 @@ const UserProvider = ({ children }) => {
     const [user, setUser] = useState ({});
     const [timeline, setTimeline] = useState ([]);
 
+    const addPostTimeline = item => {
+        timeline.unshift(item);
+    }
+
     return (
-        <UserContext.Provider value={{ user, setUser, timeline, setTimeline }}>
+        <UserContext.Provider value={{ user, setUser, timeline, setTimeline, addPostTimeline }}>
             {children}
         </UserContext.Provider>
     );

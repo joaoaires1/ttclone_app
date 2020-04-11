@@ -34,6 +34,12 @@ export const callTimeline = async ({id, api_token}) => {
     return response;
 }
 
+/**
+ * Return posts by username
+ * @param id
+ * @param api_token
+ * @param username
+ */
 export const callPerfilPosts = async ({id, api_token, username}) => {
 
     const response = await api.get('/posts_by_username', { params: {
@@ -45,6 +51,12 @@ export const callPerfilPosts = async ({id, api_token, username}) => {
     return response;
 }
 
+/**
+ * Search users by name
+ * @param id
+ * @param api_token
+ * @param name
+ */
 export const callSearchPeoples = async ({id, api_token, name}) => {
 
     const response = await api.get('/search', { params: {
@@ -52,6 +64,23 @@ export const callSearchPeoples = async ({id, api_token, name}) => {
         api_token,
         name
     }});
+
+    return response;
+}
+
+/**
+ * Post a new tweet
+ * @param id
+ * @param api_token
+ * @param text
+ */
+export const callPostTweet = async ({id, api_token, text}) => {
+
+    const response = await api.post('/posts', {
+        id,
+        api_token,
+        text
+    });
 
     return response;
 }

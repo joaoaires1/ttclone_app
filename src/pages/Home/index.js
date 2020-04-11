@@ -6,7 +6,7 @@ import { UserContext } from '../../contexts/UserContext';
 import TweetBtn from '../../components/TweetButton';
 
 const Home = ({ navigation }) => {
-    const { timeline} = useContext(UserContext);
+    const { timeline } = useContext(UserContext);
     
     return (
         <>

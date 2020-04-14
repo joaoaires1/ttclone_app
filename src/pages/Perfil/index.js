@@ -59,6 +59,8 @@ const Perfil = ({ route, navigation }) => {
     });
 
     const ListHeder = () => {
+        console.log(perfilData);
+        
         return (
             <View style={styles.containerStats}>
                 <View >
@@ -76,7 +78,11 @@ const Perfil = ({ route, navigation }) => {
                     />
 
                     <TouchableOpacity style={styles.buttonPerfil}>
-                        <Text style={styles.buttonText}>Edit perfil</Text>
+                        {
+                            perfilData.own_perfil ?
+                            <Text style={styles.buttonText}>Edit perfil</Text> :
+                            <Text style={styles.buttonText}>Seguir</Text>
+                        }
                     </TouchableOpacity>
                 </View>
 

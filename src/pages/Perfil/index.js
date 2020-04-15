@@ -93,6 +93,7 @@ const Perfil = ({ route, navigation }) => {
                         perfilData.own_perfil 
                         ?
                             <TouchableOpacity style={styles.buttonPerfil}
+                                onPress={() => navigation.navigate('EditPerfil')}
                             >
                                 <Text style={styles.buttonText}>Edit perfil</Text> 
                             </TouchableOpacity>
@@ -165,7 +166,7 @@ const Perfil = ({ route, navigation }) => {
 
             <AnimatedFlatList
                 data={posts}
-                renderItem={({ item }) => <Post user={item.user} createdAt={item.created_at} text={item.text} />}
+                renderItem={({ item }) => <Post user={item.user} createdAt={item.created_at} text={item.text} navigation={navigation} />}
                 keyExtractor={item => `${item.id}`}
                 ListHeaderComponent={ListHeder()}
                 onEndReached={() => console.log('qweq', headerHeight)}

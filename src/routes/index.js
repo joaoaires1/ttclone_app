@@ -6,18 +6,19 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import LogoTitle from '../components/LogoTitle'
-import SplashScreen from '../pages/Splash'
-import LoginScreen from '../pages/Login'
-import RegisterScreen from '../pages/Register'
-import UnauthScreen from '../pages/Unauth'
-import HomeScreen from '../pages/Home'
-import SearchScreen from '../pages/Search'
-import PerfilScreen from '../pages/Perfil'
-import TweetScreen from '../pages/Tweet'
+import LogoTitle from '../components/LogoTitle';
+import SplashScreen from '../pages/Splash';
+import LoginScreen from '../pages/Login';
+import RegisterScreen from '../pages/Register';
+import UnauthScreen from '../pages/Unauth';
+import HomeScreen from '../pages/Home';
+import SearchScreen from '../pages/Search';
+import PerfilScreen from '../pages/Perfil';
+import TweetScreen from '../pages/Tweet';
+import EditPerfilScreen from '../pages/EditPerfil';
 
-import { IMAGE } from '../utils/constants'
-import CustomDrawerContent from '../components/CustomDrawerContent'
+import { IMAGE } from '../utils/constants';
+import CustomDrawerContent from '../components/CustomDrawerContent';
 import { UserContext } from '../contexts/UserContext';
 
 const Stack = createStackNavigator();
@@ -140,6 +141,7 @@ function drawerScreen() {
         <Drawer.Screen name="Search" component={SearchTabScreen} />
         <Drawer.Screen name="Perfil" component={PerfilScreen} />
         <Drawer.Screen name="Tweet" component={TweetScreen} />
+        <Drawer.Screen name="EditPerfil" component={EditPerfilScreen} />
       </Drawer.Navigator>
   );
 }

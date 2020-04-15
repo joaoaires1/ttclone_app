@@ -3,15 +3,16 @@ import { StatusBar, View, Image, TouchableOpacity, Text, FlatList, Animated } fr
 import styles from './styles';
 import { IMAGE } from '../../utils/constants';
 import { UserContext } from '../../contexts/UserContext';
-import { callPerfilPosts } from '../../services/api';
+import { callPerfilPosts, callFollowUser, callUnfollowUser } from '../../services/api';
 import Post from '../../components/Post';
 
 const Perfil = ({ route, navigation }) => {
     const { user } = useContext(UserContext);
     const [ posts, setPosts ] = useState([]);
     const [ perfilData, setPerfilData ] = useState([]);
+    const [ following, setFollowing ] = useState(true);
 
-    const {username} = route.params
+    const { username } = route.params
 
     useEffect(() => {
         construct();
@@ -24,6 +25,17 @@ const Perfil = ({ route, navigation }) => {
         
         setPosts(postsFromServer.posts);
         setPerfilData(postsFromServer.user);
+        setFollowing(postsFromServer.user.is_following);
+    }
+
+    const handleFollowButton = async () => {
+        if (following) {
+            await callUnfollowUser({ id: user.id, api_token: user.api_token, followed_id: perfilData.id });
+            setFollowing(false);
+        } else {
+            await callFollowUser({ id: user.id, api_token: user.api_token, followed_id: perfilData.id });
+            setFollowing(true);
+        }
     }
 
     const animatedScrollYValue = new Animated.Value(0);
@@ -77,13 +89,24 @@ const Perfil = ({ route, navigation }) => {
                         }}
                     />
 
-                    <TouchableOpacity style={styles.buttonPerfil}>
-                        {
-                            perfilData.own_perfil ?
-                            <Text style={styles.buttonText}>Edit perfil</Text> :
-                            <Text style={styles.buttonText}>Seguir</Text>
-                        }
-                    </TouchableOpacity>
+                    {
+                        perfilData.own_perfil 
+                        ?
+                            <TouchableOpacity style={styles.buttonPerfil}
+                            >
+                                <Text style={styles.buttonText}>Edit perfil</Text> 
+                            </TouchableOpacity>
+                        :
+                            <TouchableOpacity style={styles.buttonPerfil}
+                                onPress={() => handleFollowButton()}
+                            >
+                                <Text style={styles.buttonText}>
+                                    { following ? 'Following' : 'Follow' }
+                                </Text>
+                            </TouchableOpacity>
+                    }
+
+                    
                 </View>
 
                 <View style={{ marginTop: 15 }}>

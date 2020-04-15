@@ -84,3 +84,30 @@ export const callPostTweet = async ({id, api_token, text}) => {
 
     return response;
 }
+
+/**
+ * Start follow an user
+ */
+export const callFollowUser = async ({id, api_token, followed_id}) => {
+    const response = await api.post('/follow', {
+        id, 
+        api_token, 
+        followed_id
+    });
+
+    return response;
+}
+
+/**
+ * Unfollow an user
+ */
+export const callUnfollowUser = async ({id, api_token, followed_id}) => {
+    const response = await api.delete(`/follow/${followed_id}`, {
+        params: {
+            id,
+            api_token
+        }
+    });
+
+    return response;
+}

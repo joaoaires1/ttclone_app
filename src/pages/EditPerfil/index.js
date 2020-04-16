@@ -4,16 +4,157 @@ import {
     Text,
     TouchableOpacity,
     Image,
-    TextInput
+    TextInput,
+    Modal,
+    StyleSheet,
+    TouchableHighlight
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { UserContext } from '../../contexts/UserContext';
+import ImagePicker from 'react-native-image-crop-picker';
+import { callEditPerfil } from '../../services/api';
+
+const styles = StyleSheet.create({
+    centeredView: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: 'rgba(0, 0, 0, 0.6)'
+    },
+    modalView: {
+      backgroundColor: "white",
+      borderRadius: 5,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      width: 250
+    },
+    openButton: {
+      backgroundColor: "#F194FF",
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2
+    },
+    options: {
+        padding: 10,
+        borderBottomColor: '#000',
+        borderBottomWidth: StyleSheet.hairlineWidth
+    },
+    optionsText: {
+        textAlign: 'center',
+        color: 'rgb(27, 149, 224)'
+    }
+  });
+  
 
 export default EditPerfil = ({ navigation}) => {
     const { user } = useContext(UserContext);
+    const [ avatar, setAvatar ] = useState(user.avatar);
+    const [ name, setName ] = useState(user.name);
+    const [ photo, setPhoto ] = useState(false);
+    const [ modalVisible, setModalVisible ] = useState(false);
+
+    const handleTakePhotoPress = () => {
+        setModalVisible(!modalVisible);
+
+        ImagePicker.clean().then(() => {
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => {
+            alert(e);
+        });
+
+        ImagePicker.openCamera({
+            width: 300,
+            height: 300,
+            cropping: true,
+        }).then(image => {
+            setAvatar(image.path);
+            setPhoto(true);
+        });
+    }
+
+    const handleChooseLibraryPress = () => {
+        setModalVisible(!modalVisible);
+
+        ImagePicker.clean().then(() => {
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => {
+            alert(e);
+        });
+
+        ImagePicker.openPicker({
+            width: 300,
+            height: 300,
+            cropping: true,
+        }).then(image => {
+            setAvatar(image.path);
+            setPhoto(true);
+        });
+    }
+
+    const handleSavePress = async () => {
+        const formData = new FormData();
+
+        if (photo)
+            formData.append('photo', {
+                uri: avatar,
+                type: 'image/jpeg',
+                name: 'profile-picture'
+            });
+
+        formData.append('id', user.id);
+        formData.append('api_token', user.api_token);
+        formData.append('name', name);
+
+        const response = await callEditPerfil(formData);
+    }
         
     return (
         <>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+
+                        <View style={styles.options}>
+                            <Text style={{ ...styles.optionsText, color: '#000' }}>Select a Photo</Text>
+                        </View>
+
+                        <TouchableHighlight
+                            onPress={() => handleTakePhotoPress()}
+                            style={styles.options}
+                        >
+                            <Text style={styles.optionsText}>Take Photo...</Text>
+                        </TouchableHighlight>
+
+                        <TouchableHighlight
+                            onPress={() => handleChooseLibraryPress()}
+                            style={styles.options}
+                        >
+                            <Text style={styles.optionsText}>Choose from Library...</Text>
+                        </TouchableHighlight>
+
+                    </View>
+
+                    <View style={{ ...styles.modalView, marginTop: 10 }}>
+                        <TouchableHighlight
+                            onPress={() => setModalVisible(!modalVisible)}
+                            style={styles.options}
+                        >
+                            <Text style={{...styles.optionsText, fontWeight: 'bold'}}>Cancelar</Text>
+                        </TouchableHighlight>
+                    </View>
+                </View>
+            </Modal>
+
             <View style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -40,11 +181,14 @@ export default EditPerfil = ({ navigation}) => {
                 </View>
 
                 <View>
-                    <TouchableOpacity style={{ 
-                        height: 30,
-                        flexDirection: 'row', 
-                        alignItems: 'center'
-                    }}>
+                    <TouchableOpacity 
+                        style={{ 
+                            height: 30,
+                            flexDirection: 'row', 
+                            alignItems: 'center'
+                        }}
+                        onPress={() => handleSavePress()}
+                    >
                         <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#107c10' }}>SAVE</Text>
                     </TouchableOpacity>
                 </View>
@@ -62,11 +206,8 @@ export default EditPerfil = ({ navigation}) => {
                     position: 'relative',
                     height: 65
                 }}>
-                    <Image
-                        source={{ uri: user.avatar }}
+                    <TouchableOpacity 
                         style={{
-                            width: 80,
-                            height: 80,
                             borderRadius: 50,
                             borderColor: '#eee',
                             borderWidth: 4,
@@ -74,18 +215,41 @@ export default EditPerfil = ({ navigation}) => {
                             top: -35,
                             left: 15
                         }}
-                    />
+                        onPress={() => setModalVisible(!modalVisible)}
+                    >
+                        <Icon 
+                            name='camera' 
+                            size={25} 
+                            color='#fff' 
+                            style={{
+                                position: 'absolute',
+                                zIndex: 1,
+                                right: 28,
+                                top: 25
+                            }}
+                        />
+
+                        <Image
+                            source={{ uri: avatar }}
+                            style={{
+                                width: 80,
+                                height: 80,
+                                borderRadius: 50,
+                            }}
+                        />
+                    </TouchableOpacity>
                 </View>
                 <View style={{
                     paddingHorizontal: 15
                 }}>
                     <Text style={{ color: '#657786' }}>Name</Text>
                     <TextInput
-                        value={user.name} 
+                        value={user.name}
+                        onChangeText={text => setName(text)} 
                         style={{
-                        borderColor: '#ccc', 
-                        borderBottomWidth: 1
-                    }}
+                            borderColor: '#ccc', 
+                            borderBottomWidth: 1
+                        }}
                     />
                 </View>
             </View>

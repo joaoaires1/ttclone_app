@@ -111,3 +111,13 @@ export const callUnfollowUser = async ({id, api_token, followed_id}) => {
 
     return response;
 }
+
+/**
+ * Submit edit perfil data
+ * @param {*} FormData 
+ */
+export const callEditPerfil = async FormData => {
+    const response = await api.post('/edit_perfil', FormData);
+
+    return response;
+}

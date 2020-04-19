@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
     View,
     Text,
@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { UserContext } from '../../contexts/UserContext';
 import ImagePicker from 'react-native-image-crop-picker';
 import { callEditPerfil } from '../../services/api';
+import { storeData } from '../../utils/helpers';
 
 const styles = StyleSheet.create({
     centeredView: {
@@ -53,7 +54,8 @@ const styles = StyleSheet.create({
   
 
 export default EditPerfil = ({ navigation}) => {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
+    
     const [ avatar, setAvatar ] = useState(user.avatar);
     const [ name, setName ] = useState(user.name);
     const [ photo, setPhoto ] = useState(false);
@@ -111,7 +113,13 @@ export default EditPerfil = ({ navigation}) => {
         formData.append('api_token', user.api_token);
         formData.append('name', name);
 
-        const response = await callEditPerfil(formData);
+        const { data: response } = await callEditPerfil(formData);
+        var newUser = user;
+        newUser.name = response.name;
+        newUser.avatar = response.avatar;
+        
+        await setUser(newUser);
+        await storeData(newUser);
     }
         
     return (
@@ -244,7 +252,7 @@ export default EditPerfil = ({ navigation}) => {
                 }}>
                     <Text style={{ color: '#657786' }}>Name</Text>
                     <TextInput
-                        value={user.name}
+                        value={name}
                         onChangeText={text => setName(text)} 
                         style={{
                             borderColor: '#ccc', 
